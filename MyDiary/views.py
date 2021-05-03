@@ -9,6 +9,6 @@ def home(request):
     }
     return render(request,'home.html',context=context)
 def search(request):
-    query = request.GET['query']
+    query = request.GET['search']
     print(query)
     return render(request,'search.html')
