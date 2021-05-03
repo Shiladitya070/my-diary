@@ -2,4 +2,14 @@
 {% block content %}
 
 
+<div class="container">
+<h5 class="text-primary"><u>Search Result For {{query}}:</u></h5>
+{% if notes%}
+{% include 'includes/notes.html' %}
+
+{% endif %}
+
+
+</div>
+
 {% endblock content %}

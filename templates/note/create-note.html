@@ -5,6 +5,8 @@
     resize: none;
   }
 </style>
+<div class="container my-2">
+
 <form method="post">
   {% csrf_token %}
   <div class="form-group">{{form.title|as_crispy_field}}</div>
@@ -13,5 +15,7 @@
   <div class="form-group" data-role="tagsinput">{{form.tags|as_crispy_field}}</div>
   <button class="btn btn-primary" type="submit">Save</button>
 </form>
+</div>
+
 
 {% endblock content %}
