@@ -18,17 +18,20 @@ endcomment %}
   {% comment %} Render the Notes Below Using django template for loop {%
   endcomment %} {% comment %} Make sure to include my-2 for 2 margin in y axis
   {% endcomment %} {% comment %} Make {% endcomment %}
-  <li class="list-group-item my-2">
-    <a href="/note/show/id">An item</a>
+  {% for note in  notes %}
+   <li class="list-group-item my-2">
+    <a href="/note/show/{{note.id}}">{{note.title}}</a>
     <span style="float: right; margin-top:0px;"
-      ><a href="note/delete/id" class="btn btn-danger mb-2 ">Delete</a>
-      <a href="/note/edit/id" class="btn btn-secondary mb-2">Edit</a>
+      ><a href="note/delete/{{note.id}}" class="btn btn-danger mb-2 ">Delete</a>
+      <a href="/note/edit/{{note.id}}" class="btn btn-secondary mb-2">Edit</a>
     </span>
   </li>
-  <li class="list-group-item my-2"><a href="/note/show/id">A 2 item</a></li>
-  <li class="list-group-item my-2"><a href="/note/show/id">A 3 item</a></li>
-  <li class="list-group-item my-2"><a href="/note/show/id">A 4 item</a></li>
-  <li class="list-group-item my-2"><a href="/note/show/id">A 5 item</a></li>
+    {% empty %}
+    <p class="text-success">Lets Create Some Memories</p>
+  
+  {% endfor %}
+
+ 
 </ul>
 
 {% comment %} List Group End {% endcomment %} {% endblock content %}
