@@ -6,8 +6,11 @@ from taggit.models import Tag
 def home(request):
     
     notes = Note.objects.order_by('-created_at')
+    common_tags = Note.tags.most_common()[:4]
+
     context = {
-        'notes': notes
+        'notes': notes,
+        'tags':common_tags
     }
     return render(request,'home.html',context=context)
 def search(request):
