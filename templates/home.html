@@ -1,4 +1,5 @@
-{% extends 'layout.html' %} {% block title %}MyDiary{% endblock title %} {%block content %} {% comment %} Search Bar Start {% endcomment %}
+{% extends 'layout.html' %} {% block title %}MyDiary{% endblock title %} 
+{%block content %} {% comment %} Search Bar Start {% endcomment %}
 <form method="get" action="/search">
   {% comment %} Sends Get request to Search Route {% endcomment %}
   <div class="form-group my-2">
@@ -9,29 +10,42 @@
       class="form-control"
       placeholder="Search"
     />
-    <span><button type="submit" class="btn btn-outline-success my-2">Search</button></span>
+    <span
+      ><button type="submit" class="btn btn-outline-success my-2">
+        Search
+      </button></span
+    >
   </div>
 </form>
-{% comment %} Search Bar End {% endcomment %} {% comment %} List Group Start {%
-endcomment %}
-<ul class="list-group list-group-flush">
-  {% comment %} Render the Notes Below Using django template for loop {%
-  endcomment %} {% comment %} Make sure to include my-2 for 2 margin in y axis
-  {% endcomment %} {% comment %} Make {% endcomment %}
-  {% for note in  notes %}
-   <li class="list-group-item my-2">
-    <a href="/note/show/{{note.id}}">{{note.title}}</a>
-    <span style="float: right; margin-top:0px;"
-      ><a href="note/delete/{{note.id}}" class="btn btn-danger mb-2 ">Delete</a>
-      <a href="/note/edit/{{note.id}}" class="btn btn-secondary mb-2">Edit</a>
-    </span>
-  </li>
-    {% empty %}
-    <p class="text-success">Lets Create Some Memories</p>
-  
-  {% endfor %}
 
- 
+<a class="btn btn-outline-primary  my-2" href="{% url 'note-create' %}">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    fill="currentColor"
+    class="bi bi-plus"
+    viewBox="0 0 16 16"
+  >
+    <path
+      d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
+    />
+  </svg>
+  Create Note</a
+>
+<ul class="list-group">
+  {% for note in notes %}
+  <li class="list-group-item my-2" style="padding: 10px">
+  <a href="/note/show/{{note.id}}">{{forloop.counter}}) {{note.title}}</a>
+    <div class="button-group " style="float:right;">
+        <a class="btn btn-outline-danger"  href="{% url 'note-delete' id=note.id %}">Delete</a>
+        <a class="btn btn-outline-secondary"  href="{% url 'note-edit' id=note.id %}">Edit</a>
+    <div>
+  </li>
+  {% empty %}
+  <p class="text-success">Lets Create Some Memories</p>
+
+  {% endfor %}
 </ul>
 
 {% comment %} List Group End {% endcomment %} {% endblock content %}

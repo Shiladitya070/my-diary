@@ -1,0 +1,17 @@
+{% extends 'layout.html' %} {% load crispy_forms_tags %} {% block content %}
+<style>
+  textarea {
+    height: 150px;
+    resize: none;
+  }
+</style>
+<form method="post">
+  {% csrf_token %}
+  <div class="form-group">{{form.title|as_crispy_field}}</div>
+  <div class="form-group">{{form.content|as_crispy_field}}</div>
+
+  <div class="form-group" data-role="tagsinput">{{form.tags|as_crispy_field}}</div>
+  <button class="btn btn-primary" type="submit">Save</button>
+</form>
+
+{% endblock content %}
