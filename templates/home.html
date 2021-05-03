@@ -1,0 +1,34 @@
+{% extends 'layout.html' %} {% block title %}MyDiary{% endblock title %} {%block content %} {% comment %} Search Bar Start {% endcomment %}
+<form method="get" action="/search">
+  {% comment %} Sends Get request to Search Route {% endcomment %}
+  <div class="form-group my-2">
+    <input
+      required
+      name="search"
+      type="text"
+      class="form-control"
+      placeholder="Search"
+    />
+    <span><button class="btn btn-outline-success my-2">Search</button></span>
+  </div>
+</form>
+{% comment %} Search Bar End {% endcomment %} {% comment %} List Group Start {%
+endcomment %}
+<ul class="list-group list-group-flush">
+  {% comment %} Render the Notes Below Using django template for loop {%
+  endcomment %} {% comment %} Make sure to include my-2 for 2 margin in y axis
+  {% endcomment %} {% comment %} Make {% endcomment %}
+  <li class="list-group-item my-2">
+    <a href="/note/show/id">An item</a>
+    <span style="float: right; margin-top:0px;"
+      ><a href="note/delete/id" class="btn btn-danger mb-2 ">Delete</a>
+      <a href="/note/edit/id" class="btn btn-secondary mb-2">Edit</a>
+    </span>
+  </li>
+  <li class="list-group-item my-2"><a href="/note/show/id">A 2 item</a></li>
+  <li class="list-group-item my-2"><a href="/note/show/id">A 3 item</a></li>
+  <li class="list-group-item my-2"><a href="/note/show/id">A 4 item</a></li>
+  <li class="list-group-item my-2"><a href="/note/show/id">A 5 item</a></li>
+</ul>
+
+{% comment %} List Group End {% endcomment %} {% endblock content %}
