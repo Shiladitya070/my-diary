@@ -1,4 +1,16 @@
-{% extends 'layout.html' %}
+{% extends 'layout.html' %} {% block content %}
+<div class="row my-2">
+  <div clas="col-md-8">
+    <main class="blog-post">
+      <h2 class="blog-post-title">{{note.title|safe}}</h2>
+      <p class="blog-post-mesta">{{note.created_at|safe}}</p>
+      {{note.content}}
+      <hr />
+      Tags: {% for tag in note.tags.all %}
+      <span>{{tag|safe}}</span>
+      {% endfor %}
+    </main>
+  </div>
+</div>
 
-{% block content %}{% endblock content %}
-
+{% endblock content %}
