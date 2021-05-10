@@ -28,39 +28,6 @@
     </ul>
   </div>
   <div class="col-md-9">
-    <form method="get" action="/search">
-      {% comment %} Sends Get request to Search Route {% endcomment %}
-      <div class="form-group my-2" >
-        <input
-          required
-          name="search"
-          type="text"
-          class="form-control"
-          placeholder="Search"
-        />
-      
-       
-        
-      </div>
-         <button type="submit" style="display:inline;" class="btn btn-outline-success my-2">
-            Search
-        </button>
-    </form>
-    <a class="btn btn-outline-primary my-2" href="{% url 'note-create' %}">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        fill="currentColor"
-        class="bi bi-plus"
-        viewBox="0 0 16 16"
-      >
-        <path
-          d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
-        />
-      </svg>
-      Create Note</a
-    >
    {% include 'includes/notes.html' %}
   </div>
   {% include 'includes/pagination.html' %}

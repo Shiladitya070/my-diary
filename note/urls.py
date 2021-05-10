@@ -8,6 +8,7 @@ from . import views
 urlpatterns = [
     path("create",views.create,name='note-create'),
     path('edit/<int:id>',views.edit,name='note-edit'),
-    path('show/<int:id>',views.show,name='note-delete'),
+    path('show/<slug:slug>',views.show,name='note-show'),
     path('delete/<int:id>',views.delete,name='note-delete'),
+    
 ]
