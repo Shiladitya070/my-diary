@@ -10,7 +10,7 @@
     <main class="blog-post">
       <h2 class="blog-post-title">{{note.title|safe}}</h2>
       <p class="blog-post-mesta">{{note.created_at|safe}}</p>
-      {{note.content}}
+      {{note.content|safe}}
       <hr />
       Tags: {% for tag in note.tags.all %}
       <span>{{tag|safe}}</span>
