@@ -1,7 +1,9 @@
 <ul class="list-group">
   {% for note in notes %}
   <li class="list-group-item my-2" style="padding: 10px">
-    <a href="/note/show/{{note.slug}}">{{forloop.counter}}) {{note.title}}</a>
+    <h2>
+      <a style="text-decoration: none; color: #000;" href="/note/show/{{note.slug}}">{{forloop.counter}}) {{note.title}}</a>
+    </h2>
     <div style="display: flex ; align-items:center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -16,7 +18,7 @@
         />
       </svg>
       {% for tag in note.tags.all %}
-      <a href="{% url 'tagged' tag.slug %}" style="text-decoration: none; color:{{ tag_color }}"> #{{ tag }} </a>
+        <span class="badge badge-info"><a href="{% url 'tagged' tag.slug %}" style='text-decoration: none; color:beige'>{{tag|safe}}</a></span>
       {% endfor %}
     </div>
     <div class="button-group" style="float: right">
