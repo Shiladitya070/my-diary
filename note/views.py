@@ -30,13 +30,30 @@ def show(request, slug):
     
     context = {
         'note': note,
-        
+    
     }
     return render(request, 'note/show-note.html', context)
 
 
-def edit(request, id):
-    return render(request, 'note/edit-note.html')
+def edit(request, slug):
+    note = get_object_or_404(Note, slug=slug)
+    form = NoteForm(request.POST or None, request.FILES or None, instance=note)
+    if form.is_valid():
+        new_note = form.save(commit=False)
+        form.instance.author = request.user
+        print(form.instance.author)
+        new_note.save()
+        form.save_m2m()
+        messages.success(request, 'Note updated Successfully')
+        # Redirect Not Happening
+        return redirect("note-show", slug=new_note.slug)
+    
+    context = {
+        "form": form,
+        "note":note,
+        
+    }
+    return render(request, 'note/edit-note.html', context)
 
 
 def delete(request, id):
