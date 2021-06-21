@@ -4,7 +4,7 @@
     <h2>
       <a style="text-decoration: none; color: #000;" href="/note/show/{{note.slug}}">{{forloop.counter}}) {{note.title}}</a>
     </h2>
-    <div style="display: flex ; align-items:center">
+    <div style="display: flex; flex-wrap: wrap ; align-items:center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="16"
@@ -18,7 +18,7 @@
         />
       </svg>
       {% for tag in note.tags.all %}
-        <span class="badge badge-info"><a href="{% url 'tagged' tag.slug %}" style='text-decoration: none; color:beige'>{{tag|safe}}</a></span>
+        <span class="badge badge-info m-1"><a href="{% url 'tagged' tag.slug %}" style='text-decoration: none; color:beige'>{{tag|safe}}</a></span>
       {% endfor %}
     </div>
     <div class="button-group" style="float: right">

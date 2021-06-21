@@ -2,10 +2,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from .models import Note
 from .forms import NoteForm
-from random import choice
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
-
+@login_required(login_url='/login/')
 def create(request):
     
     form = NoteForm(request.POST)
@@ -24,7 +24,7 @@ def create(request):
     }
     return render(request, 'note/create-note.html', context)
 
-
+@login_required(login_url='/login/')
 def show(request, slug):
     note = get_object_or_404(Note, slug=slug)
     
@@ -34,7 +34,7 @@ def show(request, slug):
     }
     return render(request, 'note/show-note.html', context)
 
-
+@login_required(login_url='/login/')
 def edit(request, slug):
     note = get_object_or_404(Note, slug=slug)
     form = NoteForm(request.POST or None, request.FILES or None, instance=note)
@@ -55,7 +55,7 @@ def edit(request, slug):
     }
     return render(request, 'note/edit-note.html', context)
 
-
+@login_required(login_url='/login/')
 def delete(request, id):
     # Backend Logic here
     get_object_or_404(Note, pk=id).delete()

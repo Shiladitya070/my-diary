@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>    
+   <title>My Diary</title>
+   <link rel="stylesheet" type="text/css" href={% static 'css/home.css' %}>
+   <link href="https://fonts.googleapis.com/css?family=Waiting+for+the+Sunrise" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+    <header>
+        <div class='main'>
+            <ul>
+                <li><a href={% url "landing-page" %}>Home</a></li>
+                <li><a href={% url "about" %}>About</a></li>
+                <li><a href={% url "contact" %}>Contacts</a></li>
+            </ul>
+        </div>
+        {% block base-home-body %}
+        {% endblock base-home-body %}
+    </header>
+</body>
+</html>

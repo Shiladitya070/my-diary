@@ -6,14 +6,15 @@
   <div clas="col-md-8">
     <main class="blog-post" style="word-wrap: break-word">
       <h2 class="blog-post-title">{{note.title|safe}}</h2>
-      <p class="blog-post-mesta">{{note.created_at|safe}}</p>
+      <small class="text-muted">{{ note.created_at }}</small><br>
       {{note.content|safe}}
       <hr />
-      Tags: {% for tag in note.tags.all %}
-      <!-- <span class="badge badge-success">{{tag|safe}}</span> -->
-        
-        <span class="badge badge-info"><a href="{% url 'tagged' tag.slug %}" style='text-decoration: none; color:beige'>{{tag|safe}}</a></span>
-      {% endfor %}
+      Tags: 
+      <div class="tags" style="display: flex; flex-wrap: wrap ; align-items:center">
+        {% for tag in note.tags.all %}
+          <span class="badge badge-info m-1"><a href="{% url 'tagged' tag.slug %}" style='text-decoration: none; color:beige'>{{tag|safe}}</a></span>
+        {% endfor %}
+      </div>
     </main>
   </div>
 </div>
