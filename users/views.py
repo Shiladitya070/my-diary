@@ -31,16 +31,13 @@ def llogin(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        print(username, password)
         user = authenticate(username=username, password=password)
-        print(user)
 
         if user is not None:
             if user.is_active:
                 login(request, user)
                 return HttpResponseRedirect(reverse('home'))
             else:
-                print('TEST')
                 messages.info(request, 'Inactive user')
                 return HttpResponseRedirect(reverse('index'))
         else:

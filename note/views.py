@@ -14,7 +14,6 @@ def create(request):
     if form.is_valid():
         new_note = form.save(commit=False)
         form.instance.author = request.user
-        print(form.instance.author)
         new_note.save()
         form.save_m2m()
         messages.success(request, 'Note Added Successfully')
@@ -42,7 +41,6 @@ def edit(request, slug):
     if form.is_valid():
         new_note = form.save(commit=False)
         form.instance.author = request.user
-        print(form.instance.author)
         new_note.save()
         form.save_m2m()
         messages.success(request, 'Note updated Successfully')
