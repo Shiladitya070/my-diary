@@ -43,7 +43,7 @@
   <div class="form-group">{{form.content|as_crispy_field}}</div>
   <div class="form-group">
     <label>Tags</label>
-    <input type="text" data-role="tagsinput"  name="tags" class="tagwidget form-control" required id="id_tags">
+    <input type="text" data-role="tagsinput" name="tags" value="{% for tag in note.tags.all %}{{ tag }},{% endfor %}" class="tagwidget form-control" required id="id_tags">
   </div>
   <button class="btn btn-primary" type="submit">Save</button>
 </form>
@@ -58,6 +58,8 @@
       ['style', ['style']],
       ['font', ['bold', 'italic', 'underline', 'clear']],
       ['fontname', ['fontname']],
+      ['fontsize', ['fontsize']],
+      ['font', ['strikethrough', 'superscript', 'subscript']],
       ['color', ['color']],
       ['para', ['ul', 'ol', 'paragraph']],
       ['height', ['height']],
@@ -66,7 +68,9 @@
       ['view', ['fullscreen', 'codeview']],
       ['help', ['help']]
     ],
-    placeholder: 'Hello Bootstrap 4',
+    fontSizes: ['8', '9', '10', '11', '12', '14', '18', '24', '36', '48' , '64', '82', '150'],
+    lineHeights: ['0.2', '0.3', '0.4', '0.5', '0.6', '0.8', '1.0', '1.2', '1.4', '1.5', '2.0', '3.0'],
+    placeholder: 'My notes',
     tabsize: 2,
     height: 600,
     

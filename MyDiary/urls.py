@@ -21,6 +21,12 @@ from django.contrib.auth import views as auth_views
 from users import views as user_views
 from users import views
 from . import views as d_views
+
+
+admin.site.site_header = "My notes"
+admin.site.site_title = "Admin Portal || My notes"
+admin.site.index_title = "Welcome to My notes admin panel"
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('mynotes/',d_views.mynotes,name='home'),
@@ -35,3 +41,7 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+if settings.DEBUG:
+        urlpatterns += static(settings.MEDIA_URL,
+                              document_root=settings.MEDIA_ROOT)
