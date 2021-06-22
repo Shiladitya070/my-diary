@@ -6,6 +6,15 @@
     
     {% load static %}
     <style>
+      body{
+        background:url({% static "bg.jpg" %});
+        height: 100vh;
+        background-size: cover;
+        background-position: center;
+      }
+
+
+
       .float{
         position:fixed;
         width:60px;
@@ -27,7 +36,7 @@
     <title>{% block title %}{% endblock title %}</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-primary" style="color: #fff;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
       <div class="container-fluid">
         <a class="navbar-brand" href="/">My Diary</a>
         <button

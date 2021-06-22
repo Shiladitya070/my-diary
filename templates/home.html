@@ -1,32 +1,52 @@
-{% extends 'layout.html' %} {% block title %}MyDiary{% endblock title %} 
-{%block content %} 
-{% comment %} Search Bar Start {% endcomment %}
-  <div class="container-fluid my-2">
-<div class="row my-2">
-  <div class="col-sm-2">
-    <h5 class="text-center">Common Tags:</h5>
-    <div class="sidetags">
-      {% for tags in tags %}
-        <span class="badge badge-{{ color|random }}"><a href="{% url 'tagged' tags.slug %}" style='text-decoration: none; color:beige'>{{tags|safe}}</a></span>
-      {% endfor %}
-    </div>
-  </div>
-  <div class="col-md-9">
-   {% include 'includes/notes.html' %}
-  </div>
-  {% include 'includes/pagination.html' %}
+{% extends 'base-home.html' %}
+{% load static %}
 
 
+{% block base-home-body %}
+        <div class="title">
+            <h1>My Notes</h1>
+            <div id="typedtext"></div>
+        </div>
+        <div class="button">
+            <a href={% url "home" %} class = "btn">My Notes</a>
+        </div>
+    <script>
+        // set up text to print, each item in array is new line
+        var aText = new Array(
+            "There are only 10 types of people in the world:", 
+            "Those who understand binary, and those who don't",
 
-
-
-
-
-
-
-
-</div>
-
-</div>
-
-{% comment %} List Group End {% endcomment %} {% endblock content %}
+            );
+        var iSpeed = 100; // time delay of print out
+        var iIndex = 0; // start printing array at this posision
+        var iArrLength = aText[0].length; // the length of the text array
+        var iScrollAt = 20; // start scrolling up at this many lines
+        
+        var iTextPos = 0; // initialise text position
+        var sContents = ''; // initialise contents variable
+        var iRow; // initialise current row
+        
+        function typewriter()
+        {
+            sContents =  ' ';
+            iRow = Math.max(0, iIndex-iScrollAt);
+            var destination = document.getElementById("typedtext");
+            
+            while ( iRow < iIndex ) {
+                sContents += aText[iRow++] + '<br />';
+            }
+            destination.innerHTML = sContents + aText[iIndex].substring(0, iTextPos) + "_";
+            if ( iTextPos++ == iArrLength ) {
+                iTextPos = 0;
+                iIndex++;
+                if ( iIndex != aText.length ) {
+                    iArrLength = aText[iIndex].length;
+                    setTimeout("typewriter()", 500);
+                }
+            } else {
+                setTimeout("typewriter()", iSpeed);
+            }
+        }
+        typewriter();
+    </script>
+{% endblock base-home-body %}

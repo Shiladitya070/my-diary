@@ -19,45 +19,19 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.auth import views as auth_views
 from users import views as user_views
-from django_email_verification import urls as mail_urls
-from django.conf.urls import url
 from users import views
-
-
-
-from . import views
+from . import views as d_views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.home,name='home'),
-    path('search',views.search,name='search'),
-    path('tagged/<slug:slug>',views.tagged,name='tagged'),
+    path('mynotes/',d_views.mynotes,name='home'),
+    path('about/',d_views.About,name='about'),
+    path('contact/',d_views.Contact,name='contact'),
+    path('',d_views.home,name='landing-page'),
+    path('search',d_views.search,name='search'),
+    path('tagged/<slug:slug>',d_views.tagged,name='tagged'),
     path('note/',include('note.urls')),
     path('register/', user_views.register, name='register'),
-    path('profile/', user_views.profile, name='profile'),
     path('login/', user_views.llogin, name='login'),
-    # path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
-    # path('login/', LoginView.as_view(), name="login"),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
-    path('password-reset/',
-         auth_views.PasswordResetView.as_view(
-             template_name='users/password_reset.html'),
-         name='password_reset'),
-    path('password-reset/done/',
-         auth_views.PasswordResetDoneView.as_view(
-             template_name='users/password_reset_done.html'
-         ),
-         name='password_reset_done'),
-    path('password-reset-confirm/<uidb64>/<token>/',
-         auth_views.PasswordResetConfirmView.as_view(
-             template_name='users/password_reset_confirm.html'
-         ),
-         name='password_reset_confirm'),
-    path('password-reset-complete/', auth_views.PasswordResetCompleteView.as_view(
-        template_name='users/password_reset_complete.html'), name='password_reset_complete'),
-    path('email/', include(mail_urls)),
-    url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
-        user_views.activate_account, name='activate'),
-    
-
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

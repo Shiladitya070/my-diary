@@ -1,0 +1,32 @@
+{% extends 'layout.html' %} {% block title %}MyDiary{% endblock title %} 
+{%block content %} 
+{% comment %} Search Bar Start {% endcomment %}
+  <div class="container-fluid my-2">
+<div class="row my-2">
+  <div class="col-sm-2">
+    <h5 class="text-center">Common Tags:</h5>
+    <div class="sidetags">
+      {% for tags in tags %}
+        <span class="badge badge-{{ color|random }}"><a href="{% url 'tagged' tags.slug %}" style='text-decoration: none; color:beige'>{{tags|safe}}</a></span>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="col-md-9">
+   {% include 'includes/notes.html' %}
+  </div>
+  {% include 'includes/pagination.html' %}
+
+
+
+
+
+
+
+
+
+
+</div>
+
+</div>
+
+{% comment %} List Group End {% endcomment %} {% endblock content %}

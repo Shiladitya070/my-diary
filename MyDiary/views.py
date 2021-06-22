@@ -3,13 +3,21 @@ from django.contrib.auth.decorators import login_required
 from note.models import Note
 from taggit.models import Tag
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
-from random import choice , randint
-from django.contrib.auth.decorators import login_required
 
-from django.utils.decorators import method_decorator
+
+def home(request):
+
+    return render(request,'home.html')
+def About(request):
+
+    return render(request,'About.html')
+def Contact(request):
+
+    return render(request,'contact.html')
+
 
 @login_required(login_url='/login/')
-def home(request):
+def mynotes(request):
     currentUser = request.user
     print(currentUser)
     notes = Note.objects.all().filter(author=currentUser).order_by('-created_at')
@@ -30,7 +38,7 @@ def home(request):
         'tags':common_tags,
         'color':['primary','secondary','success','danger', 'warning', 'info'],
     }
-    return render(request,'home.html',context=context)
+    return render(request,'mynotes.html',context=context)
 @login_required(login_url='/login/')
 def search(request):
     query = request.GET['search']
