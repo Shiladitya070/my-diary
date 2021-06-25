@@ -19,9 +19,9 @@ def Contact(request):
 @login_required(login_url='/login/')
 def mynotes(request):
     currentUser = request.user
-    print(currentUser)
+
     notes = Note.objects.all().filter(author=currentUser).order_by('-created_at')
-    print(notes)
+
     common_tags = Note.tags.most_common()[:50]
     page = request.GET.get('page',1)
     paginator = Paginator(notes, 8)
@@ -47,12 +47,10 @@ def search(request):
         'notes':notes,
         'query':query,
     }
-    print(query)
     return render(request,'search.html',context)
 @login_required(login_url='/login/')
 def tagged(request, slug):
     tag = get_object_or_404(Tag, slug=slug)
-    print(tag)
     # Filter posts by tag name  
     posts = Note.objects.filter(tags=tag,author= request.user)
     context = {

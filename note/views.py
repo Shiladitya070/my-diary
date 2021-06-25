@@ -8,17 +8,17 @@ from django.contrib.auth.decorators import login_required
 @login_required(login_url='/login/')
 def create(request):
     
-    form = NoteForm(request.POST)
-    print(form)
+    form = NoteForm(request.POST or None)
+
+
     if form.is_valid():
         new_note = form.save(commit=False)
         form.instance.author = request.user
-        print(form.instance.author)
         new_note.save()
         form.save_m2m()
         messages.success(request, 'Note Added Successfully')
         # Redirect Not Happening
-        redirect('home')
+        return redirect('note-show', slug=new_note.slug)
     context = {
         "form": form
     }
@@ -41,11 +41,9 @@ def edit(request, slug):
     if form.is_valid():
         new_note = form.save(commit=False)
         form.instance.author = request.user
-        print(form.instance.author)
         new_note.save()
         form.save_m2m()
         messages.success(request, 'Note updated Successfully')
-        # Redirect Not Happening
         return redirect("note-show", slug=new_note.slug)
     
     context = {
@@ -53,7 +51,7 @@ def edit(request, slug):
         "note":note,
         
     }
-    return render(request, 'note/edit-note.html', context)
+    return render(request, 'note/create-note.html', context)
 
 @login_required(login_url='/login/')
 def delete(request, id):
