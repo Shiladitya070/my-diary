@@ -1,23 +1,22 @@
-{% extends 'layout.html' %} {% block content %}
-<div class="container m-2">
-  <div class="row my-2">
-    <div clas="col-md-8">
-      <main class="blog-post" style="word-wrap: break-word">
-        <h2 class="blog-post-title">{{note.title|safe}}</h2>
-        <small class="text-muted">{{ note.created_at }}</small><br>
-        <div class="content" style="word-break: break-all;">
-          {{note.content|safe}}
-        </div>
-        <hr />
-        Tags: 
-        <div class="tags" style="display: flex; flex-wrap: wrap ; align-items:center">
-          {% for tag in note.tags.all %}
-            <span class="badge badge-info m-1"><a href="{% url 'tagged' tag.slug %}" style='text-decoration: none; color:beige'>{{tag|safe}}</a></span>
-          {% endfor %}
-        </div>
-      </main>
-    </div>
+{% extends 'layout.html' %} 
+{% block content %}
+  <div class="container">
+    <main class="blog-post" style="word-wrap: break-word">
+      <h1 class="blog-post-title">{{note.title|safe}}</h1>
+      <small class="text-muted">{{ note.created_at }}</small><br>
+      <a href="{% url 'pdf' slug=note.slug %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-down-fill" viewBox="0 0 16 16">
+        <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zm-1 4v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 11.293V7.5a.5.5 0 0 1 1 0z"/>
+      </svg> download as pdf</a>
+      <div class="content" style="word-break: break-all;">
+        {{note.content|safe}}
+      </div>
+      <hr />
+      Tags: 
+      <div class="tags" style="display: flex; flex-wrap: wrap ; align-items:center">
+        {% for tag in note.tags.all %}
+          <span class="badge badge-info m-1"><a href="{% url 'tagged' tag.slug %}" style='text-decoration: none; color:beige'>{{tag|safe}}</a></span>
+        {% endfor %}
+      </div>
+    </main>
   </div>
-</div>
-
 {% endblock content %}
