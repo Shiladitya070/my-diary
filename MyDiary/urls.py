@@ -30,6 +30,7 @@ admin.site.index_title = "Welcome to My notes admin panel"
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('mynotes/',d_views.mynotes,name='home'),
+    path('pdf/<slug:slug>',d_views.GeneratePdf,name='pdf'),
     path('about/',d_views.About,name='about'),
     path('contact/',d_views.Contact,name='contact'),
     path('',d_views.home,name='landing-page'),

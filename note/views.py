@@ -30,7 +30,6 @@ def show(request, slug):
     
     context = {
         'note': note,
-    
     }
     return render(request, 'note/show-note.html', context)
 

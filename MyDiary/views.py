@@ -1,8 +1,13 @@
-from django.shortcuts import redirect,render,get_object_or_404
+from django.http.response import Http404
+from django.shortcuts import render,get_object_or_404
+from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from note.models import Note
 from taggit.models import Tag
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
+from django.views.generic import View
+from MyDiary.utils import render_to_pdf
+
 
 
 def home(request):
@@ -14,6 +19,28 @@ def About(request):
 def Contact(request):
 
     return render(request,'contact.html')
+
+def GeneratePdf(request, slug, *args, **kwargs):
+        note = get_object_or_404(Note, slug=slug)
+        context = {
+            'note': note,
+        }
+        
+        pdf = render_to_pdf('note/pdf-notes.html', context)
+        if pdf:
+            response = HttpResponse(pdf, content_type='application/pdf')
+            filename = f"Mynotes_{note.title}.pdf"
+            content = f"inline; filename={filename}"
+            download = request.GET.get("download")
+            if download:
+                content = f"attachment; filename={filename}"
+            response['Content-Disposition'] = content
+            return response
+        return HttpResponse("Not found")
+       
+
+
+
 
 
 @login_required(login_url='/login/')
@@ -39,6 +66,7 @@ def mynotes(request):
         'color':['primary','secondary','success','danger', 'warning', 'info'],
     }
     return render(request,'mynotes.html',context=context)
+
 @login_required(login_url='/login/')
 def search(request):
     query = request.GET['search']
