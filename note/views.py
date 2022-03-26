@@ -5,11 +5,11 @@ from .forms import NoteForm
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+
 @login_required(login_url='/login/')
 def create(request):
-    
-    form = NoteForm(request.POST or None)
 
+    form = NoteForm(request.POST or None)
 
     if form.is_valid():
         new_note = form.save(commit=False)
@@ -24,14 +24,16 @@ def create(request):
     }
     return render(request, 'note/create-note.html', context)
 
+
 @login_required(login_url='/login/')
 def show(request, slug):
     note = get_object_or_404(Note, slug=slug)
-    
+
     context = {
         'note': note,
     }
     return render(request, 'note/show-note.html', context)
+
 
 @login_required(login_url='/login/')
 def edit(request, slug):
@@ -44,13 +46,14 @@ def edit(request, slug):
         form.save_m2m()
         messages.success(request, 'Note updated Successfully')
         return redirect("note-show", slug=new_note.slug)
-    
+
     context = {
         "form": form,
-        "note":note,
-        
+        "note": note,
+
     }
     return render(request, 'note/create-note.html', context)
+
 
 @login_required(login_url='/login/')
 def delete(request, id):

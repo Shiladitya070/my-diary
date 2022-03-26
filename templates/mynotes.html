@@ -1,32 +1,63 @@
-{% extends 'layout.html' %} {% block title %}My notes{% endblock title %} 
-{%block content %} 
-{% comment %} Search Bar Start {% endcomment %}
-  <div class="container-fluid my-2">
-<div class="row my-2">
-  <div class="col-sm-2">
-    <h5 class="text-center">Common Tags:</h5>
-    <div class="sidetags">
-      {% for tags in tags %}
-        <span class="badge badge-{{ color|random }}"><a href="{% url 'tagged' tags.slug %}" style='text-decoration: none; color:beige'>{{tags|safe}}</a></span>
-      {% endfor %}
+{% extends 'layout.html' %} {% block title %}My notes{% endblock title %}
+{%block content %}
+
+<div class="container-fluid my-2">
+  <div class="row my-2">
+    <div class="col-sm-2">
+      <h5 class="text-center">Common Tags:</h5>
+      <div class="sidetags">
+        {% for tags in tags %}
+        <span class="badge badge-{{ color|random }}"
+          ><a
+            href="{% url 'tagged' tags.slug %}"
+            style="text-decoration: none; color: beige"
+            >{{tags|safe}}</a
+          ></span
+        >
+        {% endfor %}
+      </div>
     </div>
-  </div>
-  <div class="col-md-9">
-   {% include 'includes/notes.html' %}
-  </div>
-  {% include 'includes/pagination.html' %}
+    <div class="col-md-10">
+      <div class="container">
+        <form action="{% url 'search' %}" method="GET">
 
-
-
-
-
-
-
-
-
-
+ 
+        <div class="form-group">
+          <input type="text" name="search" class="form-control my-2" placeholder="Search" />
+          <button class="btn btn-outline-primary">
+            <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-search"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+            /></svg
+          </button>
+    
+        </div>
+      </form>
+     
+      </div>
+     
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    Sort By
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    <li><a class="dropdown-item" href="/sort_by?sort_by=date">Date</a></li>
+    <li><a class="dropdown-item" href="/sort_by?sort_by=latest">Latest</a></li>
+   
+  </ul>
 </div>
 
-</div>
+      {% include 'includes/notes.html' %}
 
-{% comment %} List Group End {% endcomment %} {% endblock content %}
+    </div>
+    {% include 'includes/pagination.html' %}
+  </div>
+</div>
+{% endblock content %}

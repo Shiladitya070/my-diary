@@ -1,5 +1,8 @@
+from ast import If
 from django.http.response import Http404
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404,redirect
+from django.contrib import messages
+from note.forms import NoteForm
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from note.models import Note
@@ -9,16 +12,25 @@ from django.views.generic import View
 from MyDiary.utils import render_to_pdf
 
 
-
 def home(request):
 
     return render(request,'home.html')
-def About(request):
 
-    return render(request,'About.html')
-def Contact(request):
+@login_required(login_url="/login/")
 
-    return render(request,'contact.html')
+def sort_by(request):
+    sort_type = request.GET.get('sort_by')
+    if sort_type == 'date':
+        notes = Note.objects.all().order_by('created_at')
+        return render(request,'sort_by.html',{'notes':notes})
+    elif sort_type == 'latest':
+        latest_note = Note.objects.all().last()
+        print(latest_note.content)
+   
+        return render(request,'sort_by.html',{'latest_note':latest_note})
+    return render(request,'sort_by.html')
+    
+   
 
 def GeneratePdf(request, slug, *args, **kwargs):
         note = get_object_or_404(Note, slug=slug)
@@ -48,6 +60,7 @@ def mynotes(request):
     currentUser = request.user
 
     notes = Note.objects.all().filter(author=currentUser).order_by('-created_at')
+
 
     common_tags = Note.tags.most_common()[:50]
     page = request.GET.get('page',1)

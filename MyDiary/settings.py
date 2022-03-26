@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import os
 from django.contrib.messages import constants as messages
-import django_heroku
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,9 +26,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '%#7$(rs9ufxt&c92h$ab5ene-y!$_z-+u+ohnb-f1hscy=gcq$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = (os.environ.get("DEBUG_VALUE") == "True")
+DEBUG = True
 
-ALLOWED_HOSTS = ["mynoteskv.herokuapp.com", "localhost"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -123,7 +123,6 @@ USE_L10N = True
 USE_TZ = True
 
 
-
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert-info',
     messages.INFO: 'alert-info',
@@ -144,8 +143,5 @@ LOGIN_REDIRECT_URL = 'login'
 LOGIN_URL = 'login'
 SITE_ID = 1
 
-MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-
-
-django_heroku.settings(locals())
