@@ -40,6 +40,7 @@
 <form method="post">
   {% csrf_token %}
   <div class="form-group" rows=1>{{form.title|as_crispy_field}}</div>
+  <div class="form-group" rows=1>{{form.cover|as_crispy_field}}</div>
   <div class="form-group">{{form.content|as_crispy_field}}</div>
   <div class="form-group">
     <label>Tags</label>

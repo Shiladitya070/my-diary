@@ -6,6 +6,7 @@ class NoteForm(forms.ModelForm):
         model = Note
         fields = [
             'title',
+            'cover',
             'content',
             'tags'
         ]

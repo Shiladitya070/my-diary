@@ -1,0 +1,14 @@
+{
+    "builds": [
+      {
+        "src": "MyDiary/wsgi.py",
+        "use": "@vercel/python"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "MyDiary/wsgi.py"
+      }
+    ]
+}

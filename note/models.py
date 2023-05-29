@@ -14,6 +14,7 @@ def rand_slug():
 class Note (models.Model):
     
     title = models.TextField(max_length=500,default='')
+    cover = models.ImageField(upload_to='images/', null=True, blank=True)
     content = models.TextField(default='')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     slug = models.SlugField(max_length=1000, blank=True)

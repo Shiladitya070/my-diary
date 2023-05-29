@@ -9,11 +9,16 @@ from django.contrib.auth.decorators import login_required
 @login_required(login_url='/login/')
 def create(request):
 
-    form = NoteForm(request.POST or None)
+    # print(request.POST)
+    form = NoteForm(request.POST or None, request.FILES)
 
     if form.is_valid():
         new_note = form.save(commit=False)
         form.instance.author = request.user
+        
+        if 'banner' in request.FILES:
+            new_note.banner = request.FILES['banner']
+
         new_note.save()
         form.save_m2m()
         messages.success(request, 'Note Added Successfully')
