@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 from django.contrib.messages import constants as messages
 
 
@@ -28,7 +29,7 @@ SECRET_KEY = '%#7$(rs9ufxt&c92h$ab5ene-y!$_z-+u+ohnb-f1hscy=gcq$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.vercel.app','.now.sh']
 
 
 # Application definition
@@ -88,6 +89,7 @@ DATABASES = {
     }
 }
 
+DATABASES['default'] = dj_database_url.config()
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
